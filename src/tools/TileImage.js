@@ -6,7 +6,7 @@ class TiledImage{
         this.tileHeight = tileHeight;
     }
 
-    draw(renderContext) {
+    draw({renderContext}) {
         for(let row = 0; row < this.tileMap.length; row++) {
             for(let column = 0; column < this.tileMap[row].length; column++) {
                 const tileIndex = this.tileMap[row][column];

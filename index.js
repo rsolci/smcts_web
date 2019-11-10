@@ -27,15 +27,15 @@ function update() {
     mario.draw(canvas.getContext("2d"))
 }
 
-
 function main () {
     update()
 
     window.requestAnimationFrame(main);
 }
+
+resources.load([
+    './images/sprites/mario.png',
+    './images/sprites/level1.png'
+]);
+resources.onReady(main);
   
-// Start the game loop as soon as the sprite sheet is loaded
-// marioSpriteSheet.addEventListener("load", gameLoop);
-level1SpriteSheet.addEventListener("load", () => {
-    main()
-});

@@ -1,0 +1,11 @@
+{
+  "name": "smcts_web",
+  "version": "1.0.0",
+  "description": "A rewrite from an old J2ME college project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rsolci",
+  "license": "ISC"
+}

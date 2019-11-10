@@ -1,8 +1,6 @@
 const marioSpriteSheet = new Image();
 marioSpriteSheet.src = "./images/sprites/mario.png";
 
-console.info(marioSpriteSheet);
-
 function sprite (options) {
 				
     var that = {},
@@ -55,9 +53,24 @@ function sprite (options) {
     return that;
 }
 
+const level1SpriteSheet = new Image();
+level1SpriteSheet.src = "./images/sprites/level1.png";
+level1TileMap = [ 
+    [ 4, 5, 4, 5, 4, 5, 4 ],
+    [ 7, 7, 7, 7, 7, 7, 7 ],
+    [ 6, 6, 6, 6, 6, 6, 6 ],
+    [ 6, 6, 6, 6, 6, 6, 6 ],
+    [ 6, 6, 6, 6, 6, 6, 6 ],
+    [ 6, 6, 6, 6, 6, 6, 6 ],
+    [ 6, 6, 6, 6, 6, 6, 6 ],
+    [ 0, 2, 2, 1, 2, 2, 3 ]
+];
+
+const map1Image = new TiledImage({image: level1SpriteSheet, tileMap: level1TileMap, tileWidth: 35, tileHeight: 36})
+
 var canvas = document.getElementById("game");
-canvas.width = 32;
-canvas.height = 32;
+canvas.width = 245;
+canvas.height = 289;
 
 var marioSprite = sprite({
     context: canvas.getContext("2d"),
@@ -70,13 +83,17 @@ var marioSprite = sprite({
 });
 
 
-function gameLoop () {
+// function gameLoop () {
 
-    window.requestAnimationFrame(gameLoop);
+//     window.requestAnimationFrame(gameLoop);
     
-    marioSprite.update();
-    marioSprite.render();
-  }
+//     // marioSprite.update();
+//     // marioSprite.render();
+//     map1Image.draw(canvas.getContext("2d"))
+//   }
   
-// Start the game loop as soon as the sprite sheet is loaded
-marioSpriteSheet.addEventListener("load", gameLoop);
+// // Start the game loop as soon as the sprite sheet is loaded
+// marioSpriteSheet.addEventListener("load", gameLoop);
+level1SpriteSheet.addEventListener("load", () => {
+    map1Image.draw(canvas.getContext("2d"))
+});

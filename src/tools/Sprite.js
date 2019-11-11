@@ -25,24 +25,21 @@ class Sprite {
 }
 
 class AnimatedSprite extends Sprite {
-    constructor({totalFrames = 1, ticksPerFrame = 10, ...args}) {
+    constructor({totalFrames = 1, framesPerSeconds = 10, ...args}) {
         super(args)
         this.totalFrames = totalFrames;
-        this.ticksPerFrame = ticksPerFrame;
-        this.tickCount = 0; // TODO revisit this tick logic
+        this.framesPerSeconds = framesPerSeconds;
+        this.frame = 0;
     }
 
     draw({renderContext, x = 0, y = 0}) {
         super.draw({renderContext, x, y});
-        if (this.tickCount > this.ticksPerFrame) {
-            if (this.frameIndex < this.totalFrames - 1) {
-                this.frameIndex++;
-            } else {
-                this.frameIndex = 0;
-            }
-            this.tickCount = 0;
-        } else {
-            this.tickCount++;
+
+        this.frame += this.framesPerSeconds * Time.deltaTime;
+        this.frameIndex = Math.floor(this.frame);
+        if (this.frameIndex >= this.totalFrames) {
+            this.frameIndex = 0;
+            this.frame = 0;
         }
     }
 }

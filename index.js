@@ -32,7 +32,8 @@ function init() {
         height: 32, 
         totalFrames: 4,
         startX: 245,
-        startY: 130
+        startY: 130,
+        framesPerSeconds: 4
     })
     // TODO better organization of this inner function
     function update() {

@@ -1,11 +1,12 @@
 class Enemy {
-    constructor({image, totalFrames = 1, ticksPerFrame = 10, width, height, startX = 0, startY = 0}) {
+    constructor({image, totalFrames = 1, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds}) {
         this.sprite = new AnimatedSprite({
             image: image, 
             tileWidth: width, 
             tileHeight: height, 
             totalFrames: totalFrames,
-            ticksPerFrame: ticksPerFrame
+            ticksPerFrame: ticksPerFrame,
+            framesPerSeconds: framesPerSeconds
         })
         this.startX = startX;
         this.startY = startY;

@@ -1,17 +1,16 @@
 class Enemy {
-    constructor({image, totalFrames = 1, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds}) {
+    constructor({image, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds, animationLoop = [0]}) {
         this.sprite = new AnimatedSprite({
             image: image, 
             tileWidth: width, 
             tileHeight: height, 
-            totalFrames: totalFrames,
             ticksPerFrame: ticksPerFrame,
-            framesPerSeconds: framesPerSeconds
+            framesPerSeconds: framesPerSeconds,
+            animationLoop: animationLoop
         })
         this.startX = startX;
         this.startY = startY;
         this.actualX = startX;
-        this.width
     }
 
     update() {
@@ -21,6 +20,7 @@ class Enemy {
         } else {
             this.actualX = this.startX;
         }
+        this.sprite.update();
     }
 
     draw({renderContext}) {

@@ -25,21 +25,25 @@ class Sprite {
 }
 
 class AnimatedSprite extends Sprite {
-    constructor({totalFrames = 1, framesPerSeconds = 10, ...args}) {
+    constructor({framesPerSeconds = 10, animationLoop = [0], ...args}) {
         super(args)
-        this.totalFrames = totalFrames;
+        this.totalFrames = animationLoop.length;
         this.framesPerSeconds = framesPerSeconds;
+        this.frameIndex = animationLoop[0];
         this.frame = 0;
+        this.animationLoop = animationLoop;
     }
 
-    draw({renderContext, x = 0, y = 0}) {
-        super.draw({renderContext, x, y});
+    setAnimationLoop(animationLoop = [0]) {
+        this.animationLoop = animationLoop;
+        this.totalFrames = animationLoop.length;
+    }
 
+    update() {
         this.frame += this.framesPerSeconds * Time.deltaTime;
-        this.frameIndex = Math.floor(this.frame);
-        if (this.frameIndex >= this.totalFrames) {
-            this.frameIndex = 0;
+        if (this.frame >= this.totalFrames) {
             this.frame = 0;
         }
+        this.frameIndex = this.animationLoop[Math.floor(this.frame)]
     }
 }

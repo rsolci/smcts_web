@@ -21,26 +21,22 @@ class Player {
             this.actualY += this.playerSpeed * Time.deltaTime;
             this.sprite.setAnimationLoop([4, 5])
             this.lastDirection = 3;
-            this.sprite.update();
         } else if(input.isDown('UP') || input.isDown('w')) {
             this.actualY -= this.playerSpeed * Time.deltaTime;
             this.sprite.setAnimationLoop([1,2])
             this.lastDirection = 0;
-            this.sprite.update();
         } else if(input.isDown('RIGHT') || input.isDown('d')) {
             this.actualX += this.playerSpeed * Time.deltaTime;
             this.sprite.setAnimationLoop([7,8])
             this.lastDirection = 6;
-            this.sprite.update();
         } else if(input.isDown('LEFT') || input.isDown('a')) {
             this.actualX -= this.playerSpeed * Time.deltaTime;
             this.sprite.setAnimationLoop([10,11])
             this.lastDirection = 9;
-            this.sprite.update();
         } else {
-            this.sprite.setAnimationLoop([0])
-            this.sprite.setFrame(this.lastDirection);
+            this.sprite.setAnimationLoop([this.lastDirection])
         }
+        this.sprite.update();
     }
 
     draw({renderContext}) {

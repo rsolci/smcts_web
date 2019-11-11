@@ -46,6 +46,7 @@ function init() {
     }
     
     function mainLoop () {
+        Time.tick()
         update()
         draw()
     

@@ -14,9 +14,9 @@ class Enemy {
     }
 
     update() {
-        // TODO use some behaviour with time elapsed
+        // TODO use some behaviour
         if (this.actualX > -this.sprite.tileWidth) {
-            this.actualX--;
+            this.actualX -= (30 * Time.deltaTime);
         } else {
             this.actualX = this.startX;
         }

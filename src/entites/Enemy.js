@@ -11,6 +11,14 @@ class Enemy {
         this.startX = startX;
         this.startY = startY;
         this.actualX = startX;
+        this.actualY = startY;
+        this.collider = new Collider({
+            isTrigger:false, 
+            width: width, 
+            height: height, 
+            x: startX, 
+            y: startY
+        });
     }
 
     update() {
@@ -21,6 +29,10 @@ class Enemy {
             this.actualX = this.startX;
         }
         this.sprite.update();
+        this.collider.setPosition({
+            x: this.actualX,
+            y: this.actualY
+        });
     }
 
     draw({renderContext}) {

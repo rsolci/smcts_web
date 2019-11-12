@@ -49,6 +49,8 @@ function init() {
     function update() {
         greenKoopa.update()
         mario.update()
+
+        mario.collidesWith(greenKoopa);
     }
 
     function draw() {

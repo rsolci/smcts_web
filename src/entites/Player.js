@@ -14,6 +14,13 @@ class Player {
         this.actualY = startY;
         this.playerSpeed = playerSpeed;
         this.lastDirection = 0;
+        this.collider = new Collider({
+            isTrigger:false, 
+            width: width, 
+            height: height, 
+            x: startX, 
+            y: startY
+        });
     }
 
     update() {
@@ -37,6 +44,14 @@ class Player {
             this.sprite.setAnimationLoop([this.lastDirection])
         }
         this.sprite.update();
+        this.collider.setPosition({
+            x: this.actualX,
+            y: this.actualY
+        });
+    }
+
+    collidesWith(other) {
+        // console.info(this.collider.collidesWith(other));
     }
 
     draw({renderContext}) {

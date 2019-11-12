@@ -1,7 +1,8 @@
 resources.load([
     './images/sprites/mario.png',
     './images/sprites/koopa32.png',
-    './images/sprites/level1.png'
+    './images/sprites/level1.png',
+    './images/static/single_block.png'
 ]);
 
 const level1TileMap = [ 
@@ -45,11 +46,21 @@ function init() {
         startY: 130,
         framesPerSeconds: 4
     })
+
+    const block1 = new Obstacle({
+        image: resources.get('./images/static/single_block.png'), 
+        width: 35, 
+        height: 36, 
+        animationLoop: [0],
+        startX: 0,
+        startY: 0,
+        framesPerSeconds: 4
+    })
+
     // TODO better organization of this inner function
     function update() {
         greenKoopa.update()
-        mario.update()
-
+        mario.update({possibleObstacles: [block1]})
         mario.collidesWith(greenKoopa);
     }
 
@@ -57,6 +68,7 @@ function init() {
         map1Image.draw({renderContext:drawContext})
         mario.draw({renderContext:drawContext})
         greenKoopa.draw({renderContext:drawContext})
+        block1.draw({renderContext:drawContext})
     }
     
     function mainLoop () {

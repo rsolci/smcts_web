@@ -20,4 +20,8 @@ class Collider {
         return (this.x + this.width) >= other.collider.x && (this.y + this.height) >= other.collider.y &&
             this.x < (other.collider.x + other.collider.width) && this.y < (other.collider.y + other.collider.height)
     }
+
+    hardCollision(other) {
+        return this.collidesWith(other) && !other.collider.isTrigger && !this.isTrigger;
+    }
 }

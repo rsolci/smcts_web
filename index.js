@@ -23,52 +23,40 @@ function init() {
 
     const drawContext = canvas.getContext("2d");
 
-    const map1Image = new TiledImage({image: resources.get('./images/sprites/level1.png'), tileMap: level1TileMap, tileWidth: 35, tileHeight: 36})
-
-    const mario = new Player({
-        image: resources.get('./images/sprites/mario.png'), 
-        width: 32, 
-        height: 32, 
-        totalFrames: 3,
-        animationLoop: [0],
-        startX: 107,
-        startY: 255,
-        framesPerSeconds: 4,
-        playerSpeed: 40
-    })
-
-    const greenKoopa = new Enemy({
-        image: resources.get('./images/sprites/koopa32.png'), 
-        width: 32, 
-        height: 32, 
-        animationLoop: [0,1,2,3],
-        startX: 245,
-        startY: 130,
-        framesPerSeconds: 4
-    })
-
-    const block1 = new Obstacle({
-        image: resources.get('./images/static/single_block.png'), 
-        width: 35, 
-        height: 36, 
-        animationLoop: [0],
-        startX: 0,
-        startY: 0,
-        framesPerSeconds: 4
+    const level1 = new Level({
+        tileMap: level1TileMap,
+        backgroundImage: resources.get('./images/sprites/level1.png'),
+        enemies: [
+            new Enemy({
+                image: resources.get('./images/sprites/koopa32.png'), 
+                width: 32, 
+                height: 32, 
+                animationLoop: [0,1,2,3],
+                startX: 245,
+                startY: 130,
+                framesPerSeconds: 4
+            })
+        ],
+        obstacles: [
+            new Obstacle({
+                image: resources.get('./images/static/single_block.png'), 
+                width: 35, 
+                height: 36, 
+                animationLoop: [0],
+                startX: 0,
+                startY: 0,
+                framesPerSeconds: 4
+            })
+        ]
     })
 
     // TODO better organization of this inner function
     function update() {
-        greenKoopa.update()
-        mario.update({possibleObstacles: [block1]})
-        mario.collidesWith(greenKoopa);
+        level1.update()
     }
 
     function draw() {
-        map1Image.draw({renderContext:drawContext})
-        mario.draw({renderContext:drawContext})
-        greenKoopa.draw({renderContext:drawContext})
-        block1.draw({renderContext:drawContext})
+        level1.render({renderContext:drawContext})
     }
     
     function mainLoop () {

@@ -69,9 +69,16 @@ class Player {
     }
 
     collidesWith(other) {
-        if (this.collider.collidesWith(other)) {
+        return this.collider.collidesWith(other);
+    }
 
-        }
+    moveTo({x = 0, y = 0}) {
+        this.actualX = x;
+        this.actualY = y;
+        this.collider.setPosition({
+            x: this.actualX,
+            y: this.actualY
+        });
     }
 
     draw({renderContext}) {

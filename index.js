@@ -34,7 +34,8 @@ function init() {
                 animationLoop: [0,1,2,3],
                 startX: 245,
                 startY: 130,
-                framesPerSeconds: 4
+                framesPerSeconds: 4,
+                behaviour: new EnemyBehaviour({xSpeed: -30})
             })
         ],
         obstacles: [

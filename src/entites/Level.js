@@ -19,6 +19,12 @@ class Level {
     update() {
         this.player.update({possibleObstacles: this.obstacles})
         this.enemies.forEach((enemy) => enemy.update())
+
+        const enemyCollision = this.enemies.reduce((acc, enemy) => acc || this.player.collidesWith(enemy), false)
+
+        if(enemyCollision) {
+            this.player.moveTo({x: 107, y: 255})
+        }
     }
 
     render({renderContext}) {

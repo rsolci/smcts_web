@@ -1,5 +1,5 @@
 class Enemy {
-    constructor({image, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds, animationLoop = [0]}) {
+    constructor({image, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds, animationLoop = [0], behaviour}) {
         this.sprite = new AnimatedSprite({
             image: image, 
             tileWidth: width, 
@@ -12,6 +12,7 @@ class Enemy {
         this.startY = startY;
         this.actualX = startX;
         this.actualY = startY;
+        this.behaviour = behaviour;
         this.collider = new Collider({
             isTrigger: true, 
             width: width, 
@@ -22,17 +23,19 @@ class Enemy {
     }
 
     update() {
-        // TODO use some behaviour
-        if (this.actualX > -this.sprite.tileWidth) {
-            this.actualX -= (30 * Time.deltaTime);
-        } else {
-            this.actualX = this.startX;
+        if (this.behaviour) {
+            // TODO implement other movements
+            if (this.actualX > -this.sprite.tileWidth) {
+                this.actualX += this.behaviour.xMovement();
+            } else {
+                this.actualX = this.startX;
+            }
+            this.sprite.update();
+            this.collider.setPosition({
+                x: this.actualX,
+                y: this.actualY
+            });
         }
-        this.sprite.update();
-        this.collider.setPosition({
-            x: this.actualX,
-            y: this.actualY
-        });
     }
 
     draw({renderContext}) {
@@ -41,5 +44,20 @@ class Enemy {
             x: this.actualX, 
             y: this.startY
         })
+    }
+}
+
+class EnemyBehaviour {
+    constructor({xSpeed = 0, ySpeed = 0}) {
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+    }
+
+    xMovement() {
+        return this.xSpeed * Time.deltaTime
+    }
+
+    yMovement() {
+        return this.ySpeed * Time.deltaTime
     }
 }

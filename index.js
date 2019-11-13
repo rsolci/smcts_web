@@ -2,7 +2,8 @@ resources.load([
     './images/sprites/mario.png',
     './images/sprites/koopa32.png',
     './images/sprites/level1.png',
-    './images/static/single_block.png'
+    './images/static/single_block.png',
+    './images/sprites/koopaV32.png'
 ]);
 
 const level1TileMap = [ 
@@ -46,6 +47,16 @@ function init() {
                 startY: 130,
                 framesPerSeconds: 4,
                 behaviour: new EnemyBehaviour({xSpeed: -30, resetX: 245})
+            }),
+            new Enemy({
+                image: resources.get('./images/sprites/koopaV32.png'), 
+                width: 32, 
+                height: 32, 
+                animationLoop: [0,1,2,3],
+                startX: -32,
+                startY: 175,
+                framesPerSeconds: 4,
+                behaviour: new EnemyBehaviour({xSpeed: 30, resetX: -32, screenWidth: 245})
             })
         ],
         obstacles: [

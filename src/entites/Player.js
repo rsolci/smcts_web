@@ -1,5 +1,7 @@
 class Player {
-    constructor({image, totalFrames = 1, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds, playerSpeed = 10}) {
+    constructor({image, totalFrames = 1, ticksPerFrame = 10, 
+            width, height, startX = 0, startY = 0, framesPerSeconds, 
+            playerSpeed = 10, deathCallback = ()=>{}, respawnCallback = ()=>{}}) {
         this.sprite = new AnimatedSprite({
             image: image, 
             tileWidth: width, 
@@ -14,6 +16,10 @@ class Player {
         this.actualY = startY;
         this.playerSpeed = playerSpeed;
         this.lastDirection = 0;
+        this.alive = true;
+        this.deathCallback = deathCallback;
+        this.respawnCallback = respawnCallback;
+        this.respawnTimer = 2;
         this.collider = new Collider({
             isTrigger:false, 
             width: width, 
@@ -24,6 +30,16 @@ class Player {
     }
 
     update({possibleObstacles = []}) {
+        if (!this.alive) {
+            this.respawnTimer -= Time.deltaTime;
+            if (this.respawnTimer <= 0) {
+                this.respawnTimer = 2;
+                this.alive = true;
+                this.lastDirection = 0;
+                this.respawnCallback();
+            }
+            return
+        }
         let xPos = this.actualX;
         let yPos = this.actualY;
         if(input.isDown('DOWN') || input.isDown('s')) {
@@ -79,6 +95,20 @@ class Player {
             x: this.actualX,
             y: this.actualY
         });
+    }
+
+    death() {
+        this.alive = false;
+        if (this.lastDirection === 0) {
+            this.sprite.setAnimationLoop([12])
+        } else if (this.lastDirection === 3) {
+            this.sprite.setAnimationLoop([13])
+        } else if (this.lastDirection === 6) {
+            this.sprite.setAnimationLoop([14])
+        } else if (this.lastDirection === 9) {
+            this.sprite.setAnimationLoop([15])
+        }
+        this.sprite.update();
     }
 
     draw({renderContext}) {

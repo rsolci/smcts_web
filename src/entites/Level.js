@@ -10,7 +10,8 @@ class Level {
             startX: 107,
             startY: 255,
             framesPerSeconds: 4,
-            playerSpeed: 40
+            playerSpeed: 40,
+            respawnCallback: () => {this.player.moveTo({x: 107, y: 255})}
         })
         this.enemies = enemies;
         this.obstacles = obstacles;
@@ -23,7 +24,7 @@ class Level {
         const enemyCollision = this.enemies.reduce((acc, enemy) => acc || this.player.collidesWith(enemy), false)
 
         if(enemyCollision) {
-            this.player.moveTo({x: 107, y: 255})
+            this.player.death()
         }
     }
 

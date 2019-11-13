@@ -75,6 +75,7 @@ class Player {
                 x: this.actualX,
                 y: this.actualY
             });
+            this.sprite.setAnimationLoop([this.lastDirection])
         } else {
             // Free to walk
             this.actualX = xPos;

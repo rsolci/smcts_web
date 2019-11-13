@@ -35,7 +35,17 @@ function init() {
                 startX: 245,
                 startY: 130,
                 framesPerSeconds: 4,
-                behaviour: new EnemyBehaviour({xSpeed: -30})
+                behaviour: new EnemyBehaviour({xSpeed: -30, resetX: 245})
+            }),
+            new Enemy({
+                image: resources.get('./images/sprites/koopa32.png'), 
+                width: 32, 
+                height: 32, 
+                animationLoop: [0,1,2,3],
+                startX: 365,
+                startY: 130,
+                framesPerSeconds: 4,
+                behaviour: new EnemyBehaviour({xSpeed: -30, resetX: 245})
             })
         ],
         obstacles: [
@@ -68,6 +78,7 @@ function init() {
         window.requestAnimationFrame(mainLoop);
     }
 
+    Time.tick()
     mainLoop()
 }
 

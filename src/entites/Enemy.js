@@ -24,17 +24,7 @@ class Enemy {
 
     update() {
         if (this.behaviour) {
-            // TODO implement other movements
-            if (this.actualX > -this.sprite.tileWidth) {
-                this.actualX += this.behaviour.xMovement();
-            } else {
-                this.actualX = this.startX;
-            }
-            this.sprite.update();
-            this.collider.setPosition({
-                x: this.actualX,
-                y: this.actualY
-            });
+            this.behaviour.move(this)
         }
     }
 
@@ -48,9 +38,11 @@ class Enemy {
 }
 
 class EnemyBehaviour {
-    constructor({xSpeed = 0, ySpeed = 0}) {
+    constructor({xSpeed = 0, ySpeed = 0, loopMovement = true, resetX = 0}) {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
+        this.loopMovement = loopMovement;
+        this.resetX = resetX;
     }
 
     xMovement() {
@@ -59,5 +51,19 @@ class EnemyBehaviour {
 
     yMovement() {
         return this.ySpeed * Time.deltaTime
+    }
+
+    move(enemy) {
+        const outOfScreenX = (this.xSpeed < 0 && enemy.actualX < -enemy.sprite.tileWidth); // TODO implement movement to the right
+        if (outOfScreenX && this.loopMovement) {
+            enemy.actualX = this.resetX;
+        } else if (!outOfScreenX) {
+            enemy.actualX += this.xMovement();
+        }
+        enemy.sprite.update();
+        enemy.collider.setPosition({
+            x: this.actualX,
+            y: this.actualY
+        });
     }
 }

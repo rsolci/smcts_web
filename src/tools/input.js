@@ -31,6 +31,17 @@
         setKey(e, false);
     });
 
+    const buttons = document.querySelectorAll('.controls button');
+    for (let i = 0; i < buttons.length; i++) {
+        const button = buttons[i];
+        button.addEventListener('mousedown', function(e) {
+            setKey({keyCode: parseInt(e.currentTarget.value)}, true);
+        });
+        button.addEventListener('mouseup', function(e) {
+            setKey({keyCode: parseInt(e.currentTarget.value)}, false);
+        })
+    }
+
     window.addEventListener('blur', function() {
         pressedKeys = {};
     });

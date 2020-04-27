@@ -2,9 +2,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Super Mario Cross the Street</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <canvas id="game"></canvas>
+    <div class="controls">
+        <div class="row">
+            <button class="bt-up" value="38">
+                <img src="./images/static/arrow-left.svg"/>
+            </button>
+        </div>
+        <div class="row">
+            <button class="bt-left" value="37"><img src="./images/static/arrow-left.svg"/></button>
+            <div class="spacer-40"></div>
+            <button class="bt-right" value="39"><img src="./images/static/arrow-left.svg"/></button>
+        </div>
+        <div class="row">
+            <button class="bt-down" value="40"><img src="./images/static/arrow-left.svg"/></button>
+        </div>
+    </div>
     <script src="src/tools/resources.js"></script>
     <script src="src/tools/Time.js"></script>
     <script src="src/tools/input.js"></script>

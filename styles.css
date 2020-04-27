@@ -1,0 +1,29 @@
+.controls {
+  width: 245px;
+}
+
+.controls .row {
+  display: flex;
+  justify-content: center;
+}
+.controls button {
+  height: 40px;
+  width: 40px;
+  padding: 0;
+}
+.controls button>img {
+  height: 30px;
+  width: 30px;
+}
+.controls .bt-up>img {
+  transform: rotateZ(90deg);
+}
+.controls .bt-right>img {
+  transform: rotateZ(180deg);
+}
+.controls .bt-down>img {
+  transform: rotateZ(-90deg);
+}
+.spacer-40 {
+  width: 40px;
+}

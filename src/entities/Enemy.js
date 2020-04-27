@@ -1,24 +1,13 @@
-class Enemy {
-    constructor({image, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds, animationLoop = [0], behaviour}) {
-        this.sprite = new AnimatedSprite({
-            image: image, 
-            tileWidth: width, 
-            tileHeight: height, 
-            ticksPerFrame: ticksPerFrame,
-            framesPerSeconds: framesPerSeconds,
-            animationLoop: animationLoop
-        })
-        this.startX = startX;
-        this.startY = startY;
-        this.actualX = startX;
-        this.actualY = startY;
+class Enemy extends Entity {
+    constructor({behaviour, ...options}) {
+        super(options);
         this.behaviour = behaviour;
         this.collider = new Collider({
             isTrigger: true, 
-            width: width-7, 
-            height: height-4, 
-            x: startX, 
-            y: startY,
+            width: options.width-7, 
+            height: options.height-4, 
+            x: options.startX, 
+            y: options.startY,
             xOffset: 4,
             yOffset: 2
         });

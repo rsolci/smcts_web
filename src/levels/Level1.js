@@ -136,6 +136,9 @@ class Level1 extends Level {
       startY: 36,
       framesPerSeconds: 4,
       behaviour: new MovementRepeatBehaviour({xSpeed: -30, resetX: 245, screenWidth: 245})
+    });
+    this.waterLane = new DangerArea({
+      x: 0, y: 38, width: 245, height: 32
     })
   }
 
@@ -149,8 +152,20 @@ class Level1 extends Level {
     if (this.platform.isInside(this.player.gameObject)) {
       const xMovement = this.platform.behaviour.xMovement()
       this.player.tryMove({direction: 'CARRY', deltaX: xMovement, possibleObstacles: this.playerObstacles})
+    } else {
+      if (this.playerInWaterLane()) {
+        this.player.moveTo({
+          x: this.player.gameObject.actualX,
+          y: this.waterLane.gameObject.actualY
+        })
+        this.player.death({spriteIndex: 16});
+      }
     }
     super.update();
     this.platform.update();
+  }
+
+  playerInWaterLane() {
+    return this.waterLane.isInside(this.player.gameObject)
   }
 }

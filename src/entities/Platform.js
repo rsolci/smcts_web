@@ -32,6 +32,10 @@ class Platform extends Entity {
       x: this.gameObject.actualX, 
       y: this.gameObject.startY
     });
+
+    // renderContext.beginPath();
+    // renderContext.rect(this.gameObject.actualX, this.gameObject.actualY, this.gameObject.width, this.gameObject.height);
+    // renderContext.stroke();
   }
 
   carry(gameObjectToCarry) {
@@ -43,9 +47,9 @@ class Platform extends Entity {
   isInside(gameObject) {
     const middleX = gameObject.actualX+(gameObject.width/2);
     const middleY = gameObject.actualY+(gameObject.height/2);
-    return (middleX > this.collider.x && 
-      middleX < this.collider.x+this.collider.width && 
-      middleY > this.collider.y && 
-      middleY < this.collider.y+this.collider.height);
+    return (middleX > this.gameObject.actualX && 
+      middleX < this.gameObject.actualX+this.gameObject.width && 
+      middleY > this.gameObject.actualY && 
+      middleY < this.gameObject.actualY+this.gameObject.height);
   }
 }

@@ -113,9 +113,11 @@ class Player extends Drawable {
     });
   }
 
-  death() {
+  death({spriteIndex}) {
     this.alive = false;
-    if (this.lastDirection === 0) {
+    if (spriteIndex) {
+      this.gameObject.sprite.setAnimationLoop([spriteIndex])
+    } else if (this.lastDirection === 0) {
       this.gameObject.sprite.setAnimationLoop([12])
     } else if (this.lastDirection === 3) {
       this.gameObject.sprite.setAnimationLoop([13])

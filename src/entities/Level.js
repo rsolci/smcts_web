@@ -76,16 +76,21 @@ class Level {
   }
 
   getDrawableItems() {
+    return []
+  }
+
+  drawables() {
     return [
       this.mapImage,
       ...this.obstacles,
       this.player,
-      ...this.enemies
+      ...this.enemies,
+      ...this.getDrawableItems()
     ]
   }
 
   render({ renderContext }) {
-    this.getDrawableItems().sort((a, b) => a.drawOrder - b.drawOrder).forEach(item => {
+    this.drawables().sort((a, b) => a.drawOrder - b.drawOrder).forEach(item => {
       item.draw({renderContext})
     })
     // this.mapImage.draw({ renderContext })

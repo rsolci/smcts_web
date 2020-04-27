@@ -62,10 +62,37 @@ function init() {
         obstacles: [
             new Obstacle({
                 image: resources.get('./images/static/single_block.png'), 
-                width: 35, 
-                height: 36, 
+                width: 35,
+                height: 36,
                 animationLoop: [0],
                 startX: 0,
+                startY: 0,
+                framesPerSeconds: 4
+            }),
+            new Obstacle({
+                image: resources.get('./images/static/single_block.png'), 
+                width: 35,
+                height: 36,
+                animationLoop: [0],
+                startX: 70,
+                startY: 0,
+                framesPerSeconds: 4
+            }),
+            new Obstacle({
+                image: resources.get('./images/static/single_block.png'), 
+                width: 35,
+                height: 36,
+                animationLoop: [0],
+                startX: 140,
+                startY: 0,
+                framesPerSeconds: 4
+            }),
+            new Obstacle({
+                image: resources.get('./images/static/single_block.png'), 
+                width: 35,
+                height: 36,
+                animationLoop: [0],
+                startX: 210,
                 startY: 0,
                 framesPerSeconds: 4
             })

@@ -30,8 +30,8 @@ class Level {
 
     render({renderContext}) {
         this.mapImage.draw({renderContext})
-        this.enemies.forEach((enemy) => enemy.draw({renderContext}))
         this.obstacles.forEach((obstacle) => obstacle.draw({renderContext}))
         this.player.draw({renderContext})
+        this.enemies.forEach((enemy) => enemy.draw({renderContext}))
     }
 }

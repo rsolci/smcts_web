@@ -14,10 +14,12 @@ class Obstacle {
         this.actualY = startY;
         this.collider = new Collider({
             isTrigger: false, 
-            width: width, 
-            height: height, 
+            width: width-4, 
+            height: height-4, 
             x: startX, 
-            y: startY
+            y: startY,
+            xOffset: 2,
+            yOffset: 2
         });
     }
 
@@ -29,6 +31,6 @@ class Obstacle {
             renderContext, 
             x: this.actualX, 
             y: this.startY
-        })
+        });
     }
 }

@@ -15,10 +15,12 @@ class Enemy {
         this.behaviour = behaviour;
         this.collider = new Collider({
             isTrigger: true, 
-            width: width, 
-            height: height, 
+            width: width-7, 
+            height: height-4, 
             x: startX, 
-            y: startY
+            y: startY,
+            xOffset: 4,
+            yOffset: 2
         });
     }
 

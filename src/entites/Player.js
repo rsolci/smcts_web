@@ -22,10 +22,12 @@ class Player {
         this.respawnTimer = 2;
         this.collider = new Collider({
             isTrigger:false, 
-            width: width, 
-            height: height, 
+            width: width-4, 
+            height: height-8, 
             x: startX, 
-            y: startY
+            y: startY,
+            xOffset: 2,
+            yOffset: 3
         });
     }
 

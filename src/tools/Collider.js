@@ -1,15 +1,17 @@
 class Collider {
-    constructor({isTrigger = false, width, height, x = 0, y = 0}) {
+    constructor({isTrigger = false, width, height, x = 0, y = 0, xOffset = 0, yOffset = 0}) {
         this.isTrigger = isTrigger;
         this.width = width;
         this.height = height;
-        this.x = x;
-        this.y = y;
+        this.x = x + xOffset;
+        this.y = y + yOffset;
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
     }
 
     setPosition({x, y}) {
-        this.x = x;
-        this.y = y;
+        this.x = x + this.xOffset;
+        this.y = y + this.yOffset;
     }
 
     collidesWith(other) {

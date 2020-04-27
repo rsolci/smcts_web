@@ -1,5 +1,6 @@
-class TiledImage{
+class TiledImage extends Drawable {
     constructor({image, tileWidth = 1, tileHeight = 1, tileMap = [[0]]}) {
+        super({drawOrder: -10})
         this.image = image;
         this.tileMap = tileMap;
         this.tileWidth = tileWidth;

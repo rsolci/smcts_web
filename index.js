@@ -5,7 +5,8 @@ resources.load([
     './images/static/single_block.png',
     './images/sprites/koopaV32.png',
     './images/sprites/Birdo40.png',
-    './images/sprites/goomba25.png'
+    './images/sprites/goomba25.png',
+    './images/static/tronco70_36.png'
 ]);
 
 function init() {

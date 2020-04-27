@@ -1,15 +1,15 @@
-class Enemy extends Entity {
+class Platform extends Entity {
   constructor({ behaviour, ...options }) {
-    super({drawOrder: 10, ...options});
+    super(options);
     this.behaviour = behaviour;
     this.collider = new Collider({
       isTrigger: true,
-      width: options.width - 7,
-      height: options.height - 4,
+      width: options.width,
+      height: options.height,
       x: options.startX,
       y: options.startY,
-      xOffset: 4,
-      yOffset: 2
+      xOffset: 0,
+      yOffset: 0,
     });
   }
 

@@ -1,5 +1,6 @@
-class Entity {
-  constructor({image, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds, animationLoop = [0]}) {
+class Entity extends Drawable {
+  constructor({image, ticksPerFrame = 10, width, height, startX = 0, startY = 0, framesPerSeconds, animationLoop = [0], ...rest}) {
+    super(rest)
     this.sprite = new AnimatedSprite({
         image: image, 
         tileWidth: width, 
@@ -18,10 +19,10 @@ class Entity {
   }
 
   draw({renderContext}) {
-      this.sprite.draw({
-          renderContext, 
-          x: this.actualX, 
-          y: this.startY
-      });
+    this.sprite.draw({
+      renderContext, 
+      x: this.actualX, 
+      y: this.startY
+    });
   }
 }

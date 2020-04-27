@@ -1,18 +1,20 @@
-const level1TileMap = [ 
-  [ 4, 5, 4, 5, 4, 5, 4 ],
-  [ 7, 7, 7, 7, 7, 7, 7 ],
-  [ 6, 6, 6, 6, 6, 6, 6 ],
-  [ 6, 6, 6, 6, 6, 6, 6 ],
-  [ 6, 6, 6, 6, 6, 6, 6 ],
-  [ 6, 6, 6, 6, 6, 6, 6 ],
-  [ 6, 6, 6, 6, 6, 6, 6 ],
-  [ 0, 2, 2, 1, 2, 2, 3 ]
-];
-
 class Level1 extends Level {
   constructor() {
+    const tileMap = [ 
+      [ 4, 5, 4, 5, 4, 5, 4 ],
+      [ 7, 7, 7, 7, 7, 7, 7 ],
+      [ 6, 6, 6, 6, 6, 6, 6 ],
+      [ 6, 6, 6, 6, 6, 6, 6 ],
+      [ 6, 6, 6, 6, 6, 6, 6 ],
+      [ 6, 6, 6, 6, 6, 6, 6 ],
+      [ 6, 6, 6, 6, 6, 6, 6 ],
+      [ 0, 2, 2, 1, 2, 2, 3 ]
+    ];
+    const greenKoopaBehaviour = new MovementRepeatBehaviour({xSpeed: -30, resetX: 245});
+    const redKoopaBehaviour = new MovementRepeatBehaviour({xSpeed: 30, resetX: -32, screenWidth: 245});
+    const goombaBehaviour = new MovementRepeatBehaviour({xSpeed: -40, resetX: 245, screenWidth: 245});
     super({
-      tileMap: level1TileMap,
+      tileMap: tileMap,
       backgroundImage: resources.get('./images/sprites/level1.png'),
         enemies: [
             new Enemy({
@@ -23,7 +25,7 @@ class Level1 extends Level {
                 startX: 245,
                 startY: 130,
                 framesPerSeconds: 4,
-                behaviour: new EnemyBehaviour({xSpeed: -30, resetX: 245})
+                behaviour: greenKoopaBehaviour
             }),
             new Enemy({
                 image: resources.get('./images/sprites/koopa32.png'), 
@@ -33,7 +35,7 @@ class Level1 extends Level {
                 startX: 365,
                 startY: 130,
                 framesPerSeconds: 4,
-                behaviour: new EnemyBehaviour({xSpeed: -30, resetX: 245})
+                behaviour: greenKoopaBehaviour
             }),
             new Enemy({
                 image: resources.get('./images/sprites/koopaV32.png'), 
@@ -43,7 +45,7 @@ class Level1 extends Level {
                 startX: -32,
                 startY: 175,
                 framesPerSeconds: 4,
-                behaviour: new EnemyBehaviour({xSpeed: 30, resetX: -32, screenWidth: 245})
+                behaviour: redKoopaBehaviour
             }),
             new Enemy({
                 image: resources.get('./images/sprites/koopaV32.png'), 
@@ -53,7 +55,7 @@ class Level1 extends Level {
                 startX: -142,
                 startY: 175,
                 framesPerSeconds: 4,
-                behaviour: new EnemyBehaviour({xSpeed: 30, resetX: -32, screenWidth: 245})
+                behaviour: redKoopaBehaviour
             }),
             new Enemy({
                 image: resources.get('./images/sprites/Birdo40.png'), 
@@ -63,7 +65,7 @@ class Level1 extends Level {
                 startX: -40,
                 startY: 75,
                 framesPerSeconds: 6,
-                behaviour: new EnemyBehaviour({xSpeed: 40, resetX: -40, screenWidth: 245})
+                behaviour: new MovementRepeatBehaviour({xSpeed: 40, resetX: -40, screenWidth: 245})
             }),
             new Enemy({
                 image: resources.get('./images/sprites/goomba25.png'), 
@@ -73,7 +75,7 @@ class Level1 extends Level {
                 startX: 245,
                 startY: 225,
                 framesPerSeconds: 4,
-                behaviour: new EnemyBehaviour({xSpeed: -40, resetX: 245, screenWidth: 245})
+                behaviour: goombaBehaviour
             }),
             new Enemy({
                 image: resources.get('./images/sprites/goomba25.png'), 
@@ -83,7 +85,7 @@ class Level1 extends Level {
                 startX: 345,
                 startY: 225,
                 framesPerSeconds: 4,
-                behaviour: new EnemyBehaviour({xSpeed: -40, resetX: 245, screenWidth: 245})
+                behaviour: goombaBehaviour
             })
         ],
         obstacles: [
@@ -125,9 +127,26 @@ class Level1 extends Level {
             })
         ]
     })
+    this.platform = new Platform({
+      image: resources.get('./images/static/tronco70_36.png'), 
+      width: 70,
+      height: 36,
+      animationLoop: [0],
+      startX: 245,
+      startY: 36,
+      framesPerSeconds: 4,
+      behaviour: new MovementRepeatBehaviour({xSpeed: -30, resetX: 245, screenWidth: 245})
+    })
+  }
+
+  getDrawableItems() {
+    return [
+      ...super.getDrawableItems(), this.platform
+    ]
   }
 
   update() {
-    super.update()
+    super.update();
+    this.platform.update();
   }
 }

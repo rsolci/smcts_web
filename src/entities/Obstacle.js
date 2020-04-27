@@ -10,6 +10,5 @@ class Obstacle extends Entity {
       xOffset: 2,
       yOffset: 2
     });
-    console.info(this.collider);
   }
 }

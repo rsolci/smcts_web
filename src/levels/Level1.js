@@ -147,7 +147,8 @@ class Level1 extends Level {
 
   update() {
     if (this.platform.isInside(this.player.gameObject)) {
-      this.platform.carry(this.player.gameObject);
+      const xMovement = this.platform.behaviour.xMovement()
+      this.player.tryMove({direction: 'CARRY', deltaX: xMovement, possibleObstacles: this.obstacles})
     }
     super.update();
     this.platform.update();

@@ -32,7 +32,7 @@ class Player extends Drawable {
     this.respawnTimer = 2;
   }
 
-  tryMove({direction, possibleObstacles = [], x}) {
+  tryMove({direction, possibleObstacles = [], deltaX}) {
     if (!this.alive) {
       return;
     }
@@ -55,7 +55,7 @@ class Player extends Drawable {
       this.gameObject.sprite.setAnimationLoop([10, 11])
       this.lastDirection = 9;
     } else if (direction === 'CARRY') {
-      xPos = x;
+      xPos += deltaX;
     } else {
       this.gameObject.sprite.setAnimationLoop([this.lastDirection])
     }

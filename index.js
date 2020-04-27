@@ -3,7 +3,9 @@ resources.load([
     './images/sprites/koopa32.png',
     './images/sprites/level1.png',
     './images/static/single_block.png',
-    './images/sprites/koopaV32.png'
+    './images/sprites/koopaV32.png',
+    './images/sprites/Birdo40.png',
+    './images/sprites/goomba25.png'
 ]);
 
 const level1TileMap = [ 
@@ -57,6 +59,46 @@ function init() {
                 startY: 175,
                 framesPerSeconds: 4,
                 behaviour: new EnemyBehaviour({xSpeed: 30, resetX: -32, screenWidth: 245})
+            }),
+            new Enemy({
+                image: resources.get('./images/sprites/koopaV32.png'), 
+                width: 32, 
+                height: 32, 
+                animationLoop: [0,1,2,3],
+                startX: -142,
+                startY: 175,
+                framesPerSeconds: 4,
+                behaviour: new EnemyBehaviour({xSpeed: 30, resetX: -32, screenWidth: 245})
+            }),
+            new Enemy({
+                image: resources.get('./images/sprites/Birdo40.png'), 
+                width: 40, 
+                height: 40, 
+                animationLoop: [0,1,2,3],
+                startX: -40,
+                startY: 75,
+                framesPerSeconds: 6,
+                behaviour: new EnemyBehaviour({xSpeed: 40, resetX: -40, screenWidth: 245})
+            }),
+            new Enemy({
+                image: resources.get('./images/sprites/goomba25.png'), 
+                width: 25, 
+                height: 25, 
+                animationLoop: [0,1],
+                startX: 245,
+                startY: 225,
+                framesPerSeconds: 4,
+                behaviour: new EnemyBehaviour({xSpeed: -40, resetX: 245, screenWidth: 245})
+            }),
+            new Enemy({
+                image: resources.get('./images/sprites/goomba25.png'), 
+                width: 25, 
+                height: 25, 
+                animationLoop: [0,1],
+                startX: 305,
+                startY: 225,
+                framesPerSeconds: 4,
+                behaviour: new EnemyBehaviour({xSpeed: -40, resetX: 245, screenWidth: 245})
             })
         ],
         obstacles: [

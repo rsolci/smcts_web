@@ -10,10 +10,12 @@ class GameObject {
 
   setSprite(sprite) {
     this.sprite = sprite;
+    return this;
   }
 
   setCollider(collider) {
     this.collider = collider;
+    return this;
   }
 
   moveTo({ x = 0, y = 0 }) {

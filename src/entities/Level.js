@@ -13,12 +13,40 @@ class Level {
       playerSpeed: 40,
       respawnCallback: () => { this.player.moveTo({ x: 107, y: 255 }) }
     })
+    const leftBound = new GameObject({
+      startX: -1, startY: 0, width: 1, height: 288
+    }).setCollider(new Collider({
+      width: 1, height: 288, x: -1, y: 0
+    }));
     this.enemies = enemies;
+    this.levelBounds = [
+      new GameObject({
+        startX: -1, startY: 0, width: 1, height: 288
+      }).setCollider(new Collider({
+        x: -1, y: 0, width: 1, height: 288
+      })),
+      new GameObject({
+        startX: 245, startY: 0, width: 1, height: 288
+      }).setCollider(new Collider({
+        x: 245, y: 0, width: 1, height: 288
+      })),
+      new GameObject({
+        startX: 0, startY: -1, width: 245, height: 1
+      }).setCollider(new Collider({
+        x: 0, y: -1, width: 245, height: 1, 
+      })),
+      new GameObject({
+        startX: 0, startY: 288, width: 245, height: 1
+      }).setCollider(new Collider({
+        x: 0, y: 288, width: 245, height: 1
+      }))
+    ]
     this.obstacles = obstacles;
+    this.playerObstacles = [...this.obstacles, ...this.levelBounds];
   }
 
   movePlayer(direction) {
-    this.player.tryMove({direction, possibleObstacles: this.obstacles})
+    this.player.tryMove({direction, possibleObstacles: this.playerObstacles})
   }
 
   update() {

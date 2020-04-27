@@ -15,17 +15,12 @@ class MovementRepeatBehaviour {
     return this.ySpeed * Time.deltaTime
   }
 
-  move(enemy) {
-    const outOfScreenX = (this.xSpeed < 0 && enemy.actualX < -enemy.sprite.tileWidth) || (this.xSpeed > 0 && enemy.actualX > this.screenWidth);
+  move(gameObject) {
+    const outOfScreenX = (this.xSpeed < 0 && gameObject.actualX < -gameObject.width) || (this.xSpeed > 0 && gameObject.actualX > this.screenWidth);
     if (outOfScreenX && this.loopMovement) {
-      enemy.actualX = this.resetX;
+      gameObject.actualX = this.resetX;
     } else if (!outOfScreenX) {
-      enemy.actualX += this.xMovement();
+      gameObject.actualX += this.xMovement();
     }
-    enemy.sprite.update();
-    enemy.collider.setPosition({
-      x: enemy.actualX,
-      y: enemy.actualY
-    });
   }
 }

@@ -17,14 +17,33 @@ class Level {
     this.obstacles = obstacles;
   }
 
+  movePlayer(direction) {
+    this.player.tryMove({direction, possibleObstacles: this.obstacles})
+  }
+
   update() {
-    this.player.update({ possibleObstacles: this.obstacles })
+    this.handleControls();
+    this.player.update()
     this.enemies.forEach((enemy) => enemy.update())
 
     const enemyCollision = this.enemies.reduce((acc, enemy) => acc || this.player.collidesWith(enemy), false)
 
     if (enemyCollision) {
       this.player.death()
+    }
+  }
+
+  handleControls() {
+    if (input.isDown('DOWN') || input.isDown('s')) {
+      this.movePlayer('DOWN');
+    } else if (input.isDown('UP') || input.isDown('w')) {
+      this.movePlayer('UP');
+    } else if (input.isDown('RIGHT') || input.isDown('d')) {
+      this.movePlayer('RIGHT');
+    } else if (input.isDown('LEFT') || input.isDown('a')) {
+      this.movePlayer('LEFT');
+    } else {
+      this.movePlayer('');
     }
   }
 

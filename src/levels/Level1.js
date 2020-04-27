@@ -17,76 +17,76 @@ class Level1 extends Level {
       tileMap: tileMap,
       backgroundImage: resources.get('./images/sprites/level1.png'),
         enemies: [
-            new Enemy({
-                image: resources.get('./images/sprites/koopa32.png'), 
-                width: 32, 
-                height: 32, 
-                animationLoop: [0,1,2,3],
-                startX: 245,
-                startY: 130,
-                framesPerSeconds: 4,
-                behaviour: greenKoopaBehaviour
-            }),
-            new Enemy({
-                image: resources.get('./images/sprites/koopa32.png'), 
-                width: 32, 
-                height: 32, 
-                animationLoop: [0,1,2,3],
-                startX: 365,
-                startY: 130,
-                framesPerSeconds: 4,
-                behaviour: greenKoopaBehaviour
-            }),
-            new Enemy({
-                image: resources.get('./images/sprites/koopaV32.png'), 
-                width: 32, 
-                height: 32, 
-                animationLoop: [0,1,2,3],
-                startX: -32,
-                startY: 175,
-                framesPerSeconds: 4,
-                behaviour: redKoopaBehaviour
-            }),
-            new Enemy({
-                image: resources.get('./images/sprites/koopaV32.png'), 
-                width: 32, 
-                height: 32, 
-                animationLoop: [0,1,2,3],
-                startX: -142,
-                startY: 175,
-                framesPerSeconds: 4,
-                behaviour: redKoopaBehaviour
-            }),
-            new Enemy({
-                image: resources.get('./images/sprites/Birdo40.png'), 
-                width: 40, 
-                height: 40, 
-                animationLoop: [0,1,2,3],
-                startX: -40,
-                startY: 75,
-                framesPerSeconds: 6,
-                behaviour: new MovementRepeatBehaviour({xSpeed: 40, resetX: -40, screenWidth: 245})
-            }),
-            new Enemy({
-                image: resources.get('./images/sprites/goomba25.png'), 
-                width: 25, 
-                height: 25, 
-                animationLoop: [0,1],
-                startX: 245,
-                startY: 225,
-                framesPerSeconds: 4,
-                behaviour: goombaBehaviour
-            }),
-            new Enemy({
-                image: resources.get('./images/sprites/goomba25.png'), 
-                width: 25, 
-                height: 25, 
-                animationLoop: [0,1],
-                startX: 345,
-                startY: 225,
-                framesPerSeconds: 4,
-                behaviour: goombaBehaviour
-            })
+            // new Enemy({
+            //     image: resources.get('./images/sprites/koopa32.png'), 
+            //     width: 32, 
+            //     height: 32, 
+            //     animationLoop: [0,1,2,3],
+            //     startX: 245,
+            //     startY: 130,
+            //     framesPerSeconds: 4,
+            //     behaviour: greenKoopaBehaviour
+            // }),
+            // new Enemy({
+            //     image: resources.get('./images/sprites/koopa32.png'), 
+            //     width: 32, 
+            //     height: 32, 
+            //     animationLoop: [0,1,2,3],
+            //     startX: 365,
+            //     startY: 130,
+            //     framesPerSeconds: 4,
+            //     behaviour: greenKoopaBehaviour
+            // }),
+            // new Enemy({
+            //     image: resources.get('./images/sprites/koopaV32.png'), 
+            //     width: 32, 
+            //     height: 32, 
+            //     animationLoop: [0,1,2,3],
+            //     startX: -32,
+            //     startY: 175,
+            //     framesPerSeconds: 4,
+            //     behaviour: redKoopaBehaviour
+            // }),
+            // new Enemy({
+            //     image: resources.get('./images/sprites/koopaV32.png'), 
+            //     width: 32, 
+            //     height: 32, 
+            //     animationLoop: [0,1,2,3],
+            //     startX: -142,
+            //     startY: 175,
+            //     framesPerSeconds: 4,
+            //     behaviour: redKoopaBehaviour
+            // }),
+            // new Enemy({
+            //     image: resources.get('./images/sprites/Birdo40.png'), 
+            //     width: 40, 
+            //     height: 40, 
+            //     animationLoop: [0,1,2,3],
+            //     startX: -40,
+            //     startY: 75,
+            //     framesPerSeconds: 6,
+            //     behaviour: new MovementRepeatBehaviour({xSpeed: 40, resetX: -40, screenWidth: 245})
+            // }),
+            // new Enemy({
+            //     image: resources.get('./images/sprites/goomba25.png'), 
+            //     width: 25, 
+            //     height: 25, 
+            //     animationLoop: [0,1],
+            //     startX: 245,
+            //     startY: 225,
+            //     framesPerSeconds: 4,
+            //     behaviour: goombaBehaviour
+            // }),
+            // new Enemy({
+            //     image: resources.get('./images/sprites/goomba25.png'), 
+            //     width: 25, 
+            //     height: 25, 
+            //     animationLoop: [0,1],
+            //     startX: 345,
+            //     startY: 225,
+            //     framesPerSeconds: 4,
+            //     behaviour: goombaBehaviour
+            // })
         ],
         obstacles: [
             new Obstacle({
@@ -146,6 +146,9 @@ class Level1 extends Level {
   }
 
   update() {
+    if (this.platform.isInside(this.player.gameObject)) {
+      this.platform.carry(this.player.gameObject);
+    }
     super.update();
     this.platform.update();
   }

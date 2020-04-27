@@ -3,25 +3,18 @@ class Player extends Drawable {
     width, height, startX = 0, startY = 0, framesPerSeconds,
     playerSpeed = 10, deathCallback = () => { }, respawnCallback = () => { } }) {
     super({ drawOrder: 5 })
-    this.sprite = new AnimatedSprite({
+    this.gameObject = new GameObject({
+      startX, startY, width, height
+    });
+    this.gameObject.setSprite(new AnimatedSprite({
       image: image,
       tileWidth: width,
       tileHeight: height,
       totalFrames: totalFrames,
       ticksPerFrame: ticksPerFrame,
       framesPerSeconds: framesPerSeconds
-    })
-    this.startX = startX;
-    this.startY = startY;
-    this.actualX = startX;
-    this.actualY = startY;
-    this.playerSpeed = playerSpeed;
-    this.lastDirection = 0;
-    this.alive = true;
-    this.deathCallback = deathCallback;
-    this.respawnCallback = respawnCallback;
-    this.respawnTimer = 2;
-    this.collider = new Collider({
+    }));
+    this.gameObject.setCollider(new Collider({
       isTrigger: false,
       width: width - 4,
       height: height - 8,
@@ -29,10 +22,68 @@ class Player extends Drawable {
       y: startY,
       xOffset: 2,
       yOffset: 3
-    });
+    }));
+    
+    this.playerSpeed = playerSpeed;
+    this.lastDirection = 0;
+    this.alive = true;
+    this.deathCallback = deathCallback;
+    this.respawnCallback = respawnCallback;
+    this.respawnTimer = 2;
   }
 
-  update({ possibleObstacles = [] }) {
+  tryMove({direction, possibleObstacles = [], x}) {
+    if (!this.alive) {
+      return;
+    }
+    let xPos = this.gameObject.actualX;
+    let yPos = this.gameObject.actualY;
+    if (direction === 'DOWN') {
+      yPos += this.playerSpeed * Time.deltaTime;
+      this.gameObject.sprite.setAnimationLoop([4, 5])
+      this.lastDirection = 3;
+    } else if (direction === 'UP') {
+      yPos -= this.playerSpeed * Time.deltaTime;
+      this.gameObject.sprite.setAnimationLoop([1, 2])
+      this.lastDirection = 0;
+    } else if (direction === 'RIGHT') {
+      xPos += this.playerSpeed * Time.deltaTime;
+      this.gameObject.sprite.setAnimationLoop([7, 8])
+      this.lastDirection = 6;
+    } else if (direction === 'LEFT') {
+      xPos -= this.playerSpeed * Time.deltaTime;
+      this.gameObject.sprite.setAnimationLoop([10, 11])
+      this.lastDirection = 9;
+    } else if (direction === 'CARRY') {
+      xPos = x;
+    } else {
+      this.gameObject.sprite.setAnimationLoop([this.lastDirection])
+    }
+
+    // Move only collider first
+    this.gameObject.collider.setPosition({
+      x: xPos,
+      y: yPos
+    });
+
+    const anyColision = possibleObstacles.reduce((acc, possibleObstacle) => acc || this.gameObject.collider.hardCollision(possibleObstacle), false);
+    if (anyColision) {
+      // Hit some obstacle, revert collider move
+      this.gameObject.collider.setPosition({
+        x: this.gameObject.actualX,
+        y: this.gameObject.actualY
+      });
+      this.gameObject.sprite.setAnimationLoop([this.lastDirection])
+    } else {
+      // Free to walk
+      this.moveTo({
+        x: xPos,
+        y: yPos
+      })
+    }
+  }
+
+  update() {
     if (!this.alive) {
       this.respawnTimer -= Time.deltaTime;
       if (this.respawnTimer <= 0) {
@@ -43,83 +94,44 @@ class Player extends Drawable {
       }
       return
     }
-    let xPos = this.actualX;
-    let yPos = this.actualY;
-    if (input.isDown('DOWN') || input.isDown('s')) {
-      yPos += this.playerSpeed * Time.deltaTime;
-      this.sprite.setAnimationLoop([4, 5])
-      this.lastDirection = 3;
-    } else if (input.isDown('UP') || input.isDown('w')) {
-      yPos -= this.playerSpeed * Time.deltaTime;
-      this.sprite.setAnimationLoop([1, 2])
-      this.lastDirection = 0;
-    } else if (input.isDown('RIGHT') || input.isDown('d')) {
-      xPos += this.playerSpeed * Time.deltaTime;
-      this.sprite.setAnimationLoop([7, 8])
-      this.lastDirection = 6;
-    } else if (input.isDown('LEFT') || input.isDown('a')) {
-      xPos -= this.playerSpeed * Time.deltaTime;
-      this.sprite.setAnimationLoop([10, 11])
-      this.lastDirection = 9;
-    } else {
-      this.sprite.setAnimationLoop([this.lastDirection])
-    }
 
-    // Move only collider first
-    this.collider.setPosition({
-      x: xPos,
-      y: yPos
-    });
-
-    const anyColision = possibleObstacles.reduce((acc, possibleObstacle) => acc || this.collider.hardCollision(possibleObstacle), false);
-    if (anyColision) {
-      // Hit some obstacle, revert collider move
-      this.collider.setPosition({
-        x: this.actualX,
-        y: this.actualY
-      });
-      this.sprite.setAnimationLoop([this.lastDirection])
-    } else {
-      // Free to walk
-      this.actualX = xPos;
-      this.actualY = yPos;
-    }
-
-    this.sprite.update();
+    this.gameObject.sprite.update();
   }
 
   collidesWith(other) {
-    return this.collider.collidesWith(other);
+    return this.gameObject.collider.collidesWith(other);
   }
 
   moveTo({ x = 0, y = 0 }) {
-    this.actualX = x;
-    this.actualY = y;
-    this.collider.setPosition({
-      x: this.actualX,
-      y: this.actualY
+    this.gameObject.moveTo({
+      x: x,
+      y: y
+    })
+    this.gameObject.collider.setPosition({
+      x: this.gameObject.actualX,
+      y: this.gameObject.actualY
     });
   }
 
   death() {
     this.alive = false;
     if (this.lastDirection === 0) {
-      this.sprite.setAnimationLoop([12])
+      this.gameObject.sprite.setAnimationLoop([12])
     } else if (this.lastDirection === 3) {
-      this.sprite.setAnimationLoop([13])
+      this.gameObject.sprite.setAnimationLoop([13])
     } else if (this.lastDirection === 6) {
-      this.sprite.setAnimationLoop([14])
+      this.gameObject.sprite.setAnimationLoop([14])
     } else if (this.lastDirection === 9) {
-      this.sprite.setAnimationLoop([15])
+      this.gameObject.sprite.setAnimationLoop([15])
     }
-    this.sprite.update();
+    this.gameObject.sprite.update();
   }
 
   draw({ renderContext }) {
-    this.sprite.draw({
+    this.gameObject.sprite.draw({
       renderContext,
-      x: this.actualX,
-      y: this.actualY
+      x: this.gameObject.actualX,
+      y: this.gameObject.actualY
     })
   }
 }

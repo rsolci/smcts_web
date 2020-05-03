@@ -13,11 +13,6 @@ class Level {
       playerSpeed: 40,
       respawnCallback: () => { this.player.moveTo({ x: 107, y: 255 }) }
     })
-    const leftBound = new GameObject({
-      startX: -1, startY: 0, width: 1, height: 288
-    }).setCollider(new Collider({
-      width: 1, height: 288, x: -1, y: 0
-    }));
     this.enemies = enemies;
     this.levelBounds = [
       new GameObject({

@@ -139,7 +139,51 @@ class Level1 extends Level {
     });
     this.waterLane = new DangerArea({
       x: 0, y: 38, width: 245, height: 32
-    })
+    });
+    this.triggers = [
+      new Trigger({
+        image: resources.get('./images/sprites/level1.png'), 
+        width: 35,
+        height: 36,
+        animationLoop: [8],
+        startX: 175,
+        startY: 0,
+        framesPerSeconds: 4,
+        onCollide: (obstacle) => { 
+          this.player.respawnCallback();
+          this.playerObstacles.push(obstacle)
+          this.obstacles.push(obstacle)
+        }
+      }),
+      new Trigger({
+        image: resources.get('./images/sprites/level1.png'), 
+        width: 35,
+        height: 36,
+        animationLoop: [8],
+        startX: 105,
+        startY: 0,
+        framesPerSeconds: 4,
+        onCollide: (obstacle) => { 
+          this.player.respawnCallback();
+          this.playerObstacles.push(obstacle)
+          this.obstacles.push(obstacle)
+        }
+      }),
+      new Trigger({
+        image: resources.get('./images/sprites/level1.png'), 
+        width: 35,
+        height: 36,
+        animationLoop: [8],
+        startX: 35,
+        startY: 0,
+        framesPerSeconds: 4,
+        onCollide: (obstacle) => { 
+          this.player.respawnCallback();
+          this.playerObstacles.push(obstacle)
+          this.obstacles.push(obstacle)
+        }
+      })
+    ]
   }
 
   getDrawableItems() {
@@ -149,6 +193,9 @@ class Level1 extends Level {
   }
 
   update() {
+    this.triggers.forEach(trigger => {
+      trigger.checkTrigger(this.player.gameObject);
+    })
     if (this.platform.isInside(this.player.gameObject)) {
       const xMovement = this.platform.behaviour.xMovement()
       this.player.tryMove({direction: 'CARRY', deltaX: xMovement, possibleObstacles: this.playerObstacles})

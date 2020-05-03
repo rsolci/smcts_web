@@ -24,5 +24,9 @@ class Entity extends Drawable {
       x: this.actualX, 
       y: this.startY
     });
+
+    renderContext.beginPath();
+    renderContext.rect(this.actualX, this.actualY, this.sprite.width, this.sprite.height);
+    renderContext.stroke();
   }
 }

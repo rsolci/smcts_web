@@ -37,7 +37,13 @@
         button.addEventListener('mousedown', function(e) {
             setKey({keyCode: parseInt(e.currentTarget.value)}, true);
         });
+        button.addEventListener('touchstart', function(e) {
+            setKey({keyCode: parseInt(e.currentTarget.value)}, true);
+        });
         button.addEventListener('mouseup', function(e) {
+            setKey({keyCode: parseInt(e.currentTarget.value)}, false);
+        })
+        button.addEventListener('touchend', function(e) {
             setKey({keyCode: parseInt(e.currentTarget.value)}, false);
         })
     }
